@@ -34,6 +34,7 @@
 }
 #q4Wrapper article img {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+
 }
 #q4Wrapper a {
   display: inline-block;
@@ -41,13 +42,13 @@
   color: white;
   transition: transform 0.3s ease;
 }
-#q4Wrapper a:hover {
+#q4Wrapper a:hover,
+#q4Wrapper a:focus { /* added more obvious focus state */
   transform: scale(1.05);
 }
 #q4Wrapper a span {
   opacity: 0.5;
 }
-
 .layout_inner {
   max-width: 960px;
   margin: 0 auto;
@@ -58,7 +59,80 @@
   text-align: center;
 }
 
-/* Begin styling the report items here! */
-.reports {
+/* added screen reader only class */
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
+/* transitions to make media query break points smoother */
+* {
+  -webkit-transition:all 0.5s ease;
+  -moz-transition:all 0.5s ease;
+  -o-transition:all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+/* Begin styling the report items here! */
+
+/* images can resize down if needed */
+.reports img {
+  max-width: 100%;
+}
+
+/* grey style for doc file size/type - grey in example isn't accessible so changed to meet 4.5 : 1 contrast min AA standard */
+.reports span {
+  color: #ecf3ff;
+  padding-left: 3px;
+}
+
+/* grid layout for documents, 30px minimum between docs and 3 equal columns */
+.reports {
+  display: grid;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+
+/* Media queries */
+
+/* prevents file size text from wrapping under */
+@media only screen and (max-width: 880px) {
+
+  #q4Wrapper h3 {
+    font-size: 12px;
+  }
+  
+}
+
+/* break point switches to 2 col layout */
+@media only screen and (max-width: 768px) {
+
+  .reports {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+}
+
+/* break point switches to single col layout */
+@media only screen and (max-width: 525px) {
+
+  .reports {
+    grid-template-columns: 1fr;
+  }
+  
+}
+
+/* prevents heading text from wrapping under */
+@media only screen and (max-width: 400px) {
+
+  #q4Wrapper h1 {
+    font-size: 36px;
+  }
+  
 }
